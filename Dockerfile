@@ -2,12 +2,12 @@
 FROM heroku/cedar:14
 
 # Set Node Version
-ENV NODE_ENGINE 7.7.3
+ENV NODE_ENGINE 7.8.0
 
 # Set the PATH for Node (inc npm) and any installed runnables
 ENV PATH /app/heroku/node/bin/:/app/user/node_modules/.bin:$PATH
 
-# Add gpg keys listed at https://github.com/nodejs/node
+# Add gpg keys listed at https://github.com/nodejs/node#release-team
 RUN set -ex \
   && for key in \
     94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
