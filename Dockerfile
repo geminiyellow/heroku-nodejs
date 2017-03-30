@@ -1,5 +1,5 @@
 # Inherit Heroku OS
-FROM heroku/cedar:14
+FROM heroku/jvm
 
 # Set Node Version
 ENV NODE_ENGINE 7.8.0
@@ -40,3 +40,11 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_ENGINE/node-v$NODE_ENGINE-linux-x6
 
 # Make the PATH available to Heroku by export to .profile.d
 RUN echo "export PATH=\"/app/heroku/node/bin:/app/user/node_modules/.bin:\$PATH\"" > /app/.profile.d/nodejs.sh
+
+# Install Maven
+ENV M2_HOME /app/.mvn
+RUN curl -s --retry 3 -L https://lang-jvm.s3.amazonaws.com/maven-3.3.3.tar.gz | tar xz -C /app
+RUN chmod +x /app/.maven/bin/mvn
+ENV M2_HOME /app/.maven
+ENV PATH /app/.maven/bin:$PATH
+ENV MAVEN_OPTS "-Xmx1024m -Duser.home=/app/usr -Dmaven.repo.local=/app/.m2/repository"
