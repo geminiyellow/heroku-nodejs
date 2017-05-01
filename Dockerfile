@@ -48,3 +48,12 @@ RUN chmod +x /app/.maven/bin/mvn
 ENV M2_HOME /app/.maven
 ENV PATH /app/.maven/bin:$PATH
 ENV MAVEN_OPTS "-Xmx1024m -Duser.home=/app/usr -Dmaven.repo.local=/app/.m2/repository"
+
+# Install Yarn
+RUN npm install --global yarn@0.23.3
+
+RUN echo "\n \
+    node: $(node --version) \n \
+    npm: $(npm --version) \n \
+    yarn: $(yarn --version) \n \
+"
