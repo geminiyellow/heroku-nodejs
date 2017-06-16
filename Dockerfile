@@ -1,10 +1,10 @@
 # Inherit Heroku OS
-FROM heroku/jvm
+FROM heroku/heroku:16
 
 # Set Node Version
-ENV NODE_ENGINE 7.10.0
+ENV NODE_ENGINE 8.1.2
 
-# Set the PATH for Node (inc npm) and any installed runnables
+# Set the PATH for Node and any installed runnables
 ENV PATH /app/heroku/node/bin/:/app/user/node_modules/.bin:$PATH
 
 # Add gpg keys listed at https://github.com/nodejs/node#release-team
@@ -30,6 +30,9 @@ RUN mkdir -p /app/.profile.d
 # Change to working directory
 WORKDIR /app/user
 
+# Install xz
+RUN apt-get update && apt-get install -y xz-utils && apt-get autoremove && apt-get clean
+
 # Install Node
 RUN curl -SLO "https://nodejs.org/dist/v$NODE_ENGINE/node-v$NODE_ENGINE-linux-x64.tar.xz" \
   && curl -SLO "https://nodejs.org/dist/v$NODE_ENGINE/SHASUMS256.txt.asc" \
@@ -41,16 +44,8 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_ENGINE/node-v$NODE_ENGINE-linux-x6
 # Make the PATH available to Heroku by export to .profile.d
 RUN echo "export PATH=\"/app/heroku/node/bin:/app/user/node_modules/.bin:\$PATH\"" > /app/.profile.d/nodejs.sh
 
-# Install Maven
-ENV M2_HOME /app/.mvn
-RUN curl -s --retry 3 -L https://lang-jvm.s3.amazonaws.com/maven-3.3.3.tar.gz | tar xz -C /app
-RUN chmod +x /app/.maven/bin/mvn
-ENV M2_HOME /app/.maven
-ENV PATH /app/.maven/bin:$PATH
-ENV MAVEN_OPTS "-Xmx1024m -Duser.home=/app/usr -Dmaven.repo.local=/app/.m2/repository"
-
 # Install Yarn
-RUN npm install --global yarn@0.23.3
+RUN npm install --global yarn@0.23.4
 
 RUN echo "\n \
     node: $(node --version) \n \
