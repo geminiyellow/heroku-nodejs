@@ -2,7 +2,7 @@
 FROM heroku/heroku:16
 
 # Set Node Version
-ENV NODE_ENGINE 8.1.3
+ENV NODE_ENGINE 8.1.4
 
 # Set the PATH for Node and any installed runnables
 ENV PATH /app/heroku/node/bin/:/app/user/node_modules/.bin:$PATH
@@ -45,7 +45,7 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_ENGINE/node-v$NODE_ENGINE-linux-x6
 RUN echo "export PATH=\"/app/heroku/node/bin:/app/user/node_modules/.bin:\$PATH\"" > /app/.profile.d/nodejs.sh
 
 # Install Yarn
-RUN npm install --global yarn@0.24.6 node-gyp
+RUN npm install --global yarn@0.27.5 node-gyp
 
 RUN echo "\n \
     node: $(node --version) \n \
