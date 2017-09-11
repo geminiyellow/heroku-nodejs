@@ -45,7 +45,7 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_ENGINE/node-v$NODE_ENGINE-linux-x6
 RUN echo "export PATH=\"/app/heroku/node/bin:/app/user/node_modules/.bin:\$PATH\"" > /app/.profile.d/nodejs.sh
 
 # Install Yarn
-RUN npm install --global yarn@0.27.5 node-gyp
+RUN npm install --global yarn@1.0.1
 
 RUN echo "\n \
     node: $(node --version) \n \
