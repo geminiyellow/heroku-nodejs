@@ -2,7 +2,7 @@
 FROM heroku/heroku:16
 
 # Set Node Version
-ENV NODE_ENGINE 8.7.0
+ENV NODE_ENGINE 8.8.1
 
 # Set the PATH for Node and any installed runnables
 ENV PATH /app/heroku/node/bin/:/app/user/node_modules/.bin:$PATH
